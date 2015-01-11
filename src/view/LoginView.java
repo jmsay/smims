@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Font;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -20,10 +21,11 @@ public class LoginView extends JPanel {
 	public LoginView() {
 		super();
 		setLayout(null);
+		setBounds(0, 0, 1024, 600);
+		setOpaque(false);
 		loadImages();
 		initComponents();
 		addComponents();
-		setBounds(0, 0, 1000, 700);
 	}
 
 	private void addComponents() {
@@ -34,17 +36,17 @@ public class LoginView extends JPanel {
 	}
 
 	private void loadImages() {
-		bg = new ImageIcon("images/login/loginbg.jpg");
-		lgu = new ImageIcon("images/login/loginu.png");
-		lgr = new ImageIcon("images/login/loginr.png");
+		bg = new ImageIcon("images/loginbg.jpg");
+		lgu = new ImageIcon("images/buttons/loginU.png");
+		lgr = new ImageIcon("images/buttons/loginR.png");
 	}
 
 	private void initComponents() {
 		setBG(new JLabel(bg));
-		getBG().setBounds(0, 0, 1000, 700);
+		getBG().setBounds(0, 0, 1024, 600);
 		
 		setLoginButton(new JButton(lgu));
-		getLoginButton().setBounds(455, 435, 96, 91);
+		getLoginButton().setBounds(656, 405, 96, 61);
 		getLoginButton().setOpaque(false);
 		getLoginButton().setFocusable(false);
         getLoginButton().setContentAreaFilled(false);
@@ -52,12 +54,14 @@ public class LoginView extends JPanel {
         getLoginButton().setRolloverIcon(lgr);
         
         setUserField(new JTextField(20));
-        getUserField().setBounds(369, 322, 267, 37);
+        getUserField().setFont( new Font("Serif", Font.PLAIN, 20)); 
+		getUserField().setBounds(593, 300, 230, 33);
         getUserField().setOpaque(false);
         getUserField().setBorder(null);
         
         setPassField(new JPasswordField(20));
-        getPassField().setBounds(369, 405, 267, 37);
+        getPassField().setFont( new Font("Serif", Font.PLAIN, 20));
+        getPassField().setBounds(593, 370, 230, 33);
         getPassField().setOpaque(false);
         getPassField().setBorder(null);
 	}

@@ -31,14 +31,21 @@ public class LoginController implements ActionListener {
 	{
 		if( e.getSource() == view.getUserField() || e.getSource() == view.getPassField() || e.getSource() == view.getLoginButton() )
 		{
-			System.out.println( "--VIEW-- user: " + view.getUserField().getText() + " pass: " + new String(view.getPassField().getPassword()) );
-		}
-		boolean loginResult = model.checkCredentials(view.getUserField().getText(), new String(view.getPassField().getPassword()));
-		JOptionPane.showMessageDialog( null, loginResult ? "Login successful!" : "Incorrect username/password combination!" );
-		if( loginResult )
-		{
-			HomeView homeView = new HomeView();
-			controller.changeView( homeView );
+			boolean loginResult = model.checkCredentials(view.getUserField().getText(), new String(view.getPassField().getPassword()));
+			if( loginResult )
+			{
+				HomeView homeView = new HomeView();
+				homeView.setUserName( model.getLast_name().toUpperCase() + ", " + model.getFirst_name() );
+				homeView.setOfficeName( model.getPosition() + ", " + model.getOffice().toUpperCase() );
+				homeView.updateUserLabel();
+				controller.changeView( view, homeView );
+				new HomeController( controller, homeView, model );
+			}
+			else
+			{
+				JOptionPane.showMessageDialog(null, "Incorrect username/password combination.");
+				view.getPassField().setText(null);
+			}
 		}
 	}
 }

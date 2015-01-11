@@ -3,24 +3,23 @@ package controller;
 import javax.swing.JPanel;
 
 import view.*;
-import model.*;
 
 public class MainController {
 	
 	private MainClass mainClass;
 	
-	public MainController( MainClass mainClass ) {
-		this.mainClass = mainClass;
+	public MainController() {
+		mainClass = new MainClass( this );
 	}
 	
-	public void changeView( JPanel view ) {
+	public void changeView( JPanel prevView, JPanel view ) {
 		getMainClass().setVisible(false);
-		getMainClass().getLoginView().setVisible(false);
+		prevView.setVisible(false);
+		getMainClass().remove( prevView );
 		getMainClass().add( view );
+		getMainClass().setVisible(true);
 		getMainClass().repaint();
 		getMainClass().revalidate();
-		getMainClass().setVisible(true);
-		getMainClass().remove(mainClass.getLoginView());
 	}
 
 	public MainClass getMainClass() {

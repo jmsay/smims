@@ -1,117 +1,113 @@
 package view;
 
+import java.awt.Component;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.awt.Font;
+
+import controller.HomeController;
 
 public class HomeView extends JPanel {
 	
-	ImageIcon bg, perU, perR, stoU, stoR, supU, supR, genU, genR, updU, updR, viewU, viewR, priU, priR, fileB, editB, vieB, setB, helpB, loB;
+	ImageIcon bg, menuButtonIcon[] = new ImageIcon[5], menuROButtonIcon[] = new ImageIcon[5];;
 	private JLabel mainbg;
-	private JButton person, stock, supply, report, update, view, print, file, edit, vie, set, help, lo;
-	
+	private JLabel dateTime;
+	private JLabel userLabel;
+	private JButton menuButtons[] = new JButton[5];
+	private JPanel newPanel;
+	private String userName;
+	private String officeName;
+
 	public HomeView() {
 		super();
 		setLayout(null);
+		setBounds(0, 0, 1024, 600);
+		setOpaque(false);
 		loadImages();
 		initComponents();
 		addComponents();
-		setBounds(0, 0, 1000, 700);
 	}
 
 	private void addComponents() {
-		add(getSup());
-		add(getSto());
-		add(getPer());
-		add(getUpd());
-		add(getGen());
-		add(getView());
-		add(getPri());
-		add(getBG());
+		add(getNewPanel());
+		add(getUserLabel());
+		add(getDateTime());
+		for( int i = 0; i < 5; i++ )
+			add( getMenuButtons()[i] );
+		add( getBG() );
 	}
 	
 	private void loadImages() {
-		bg = new ImageIcon("images/menu/menuBg.jpg");
-		perU = new ImageIcon("images/menu/addPerson.png");
-		perR = new ImageIcon("images/menu/addPersonR.png");
-		stoU = new ImageIcon("images/menu/addStock.png");
-		stoR = new ImageIcon("images/menu/addStockR.png");
-		supU = new ImageIcon("images/menu/addSupplyBtn.png");
-		supR = new ImageIcon("images/menu/addSupplyR.png");
-		genU = new ImageIcon("images/menu/generate.png");
-		genR = new ImageIcon("images/menu/generateR.png");
-		updU = new ImageIcon("images/menu/update.png");
-		updR = new ImageIcon("images/menu/updateR.png");
-		viewU = new ImageIcon("images/menu/viewInvent.png");
-		viewR = new ImageIcon("images/menu/viewInventR.png");
-		priU = new ImageIcon("images/menu/print.png");
-		priR = new ImageIcon("images/menu/printR.png");
-		fileB = new ImageIcon("images/menu/fileBtn.png");
+		bg = new ImageIcon("images/menuBg.jpg");
+		menuButtonIcon[0] = new ImageIcon("images/buttons/addSupMat.png");
+		menuROButtonIcon[0] = new ImageIcon("images/buttons/addSupMatRO.png");
+		menuButtonIcon[1] = new ImageIcon("images/buttons/addStock.png");
+		menuROButtonIcon[1] = new ImageIcon("images/buttons/addStockRO.png");
+		menuButtonIcon[2] = new ImageIcon("images/buttons/viewInv.png");
+		menuROButtonIcon[2] = new ImageIcon("images/buttons/viewInvRO.png");
+		menuButtonIcon[3] = new ImageIcon("images/buttons/addPer.png");
+		menuROButtonIcon[3] = new ImageIcon("images/buttons/addPerRO.png");
+		menuButtonIcon[4] = new ImageIcon("images/buttons/genRep.png");
+		menuROButtonIcon[4] = new ImageIcon("images/buttons/genRepRO.png");
 	}
 
 	private void initComponents() {
 		setBG(new JLabel(bg));
-		getBG().setBounds(0, 0, 1000, 700);
+		getBG().setBounds(0, 0, 1024, 600);
 		
-		setPer(new JButton(perU));
-		setSto(new JButton(stoU));
-		setSup(new JButton(supU));
-		setGen(new JButton(genU));
-		setUpd(new JButton(updU));
-		setView(new JButton(viewU));
-		setPri(new JButton(priU));
+		for(int i=0, y=160; i<5; i++, y+=33 ){
+			menuButtons[i] = new JButton(menuButtonIcon[i]);
+			if( i == 3 )
+				y = 298;
+			else if( i == 4 )
+				y = 375;
+			setButton( getMenuButtons()[i], menuROButtonIcon[i], 4, y, 214, 32 );
+		}
+		setNewPanel(new JPanel());
+		getNewPanel().setBounds(222, 123, 795, 477);
+		getNewPanel().setOpaque(false);
+		getNewPanel().setFocusable(false);
+		getNewPanel().setLayout(null);
 		
-		getSup().setBounds(5, 146, 269, 45);
-		getSup().setOpaque(false);
-		getSup().setFocusable(false);
-        getSup().setContentAreaFilled(false);
-        getSup().setBorderPainted(false);
-        getSup().setRolloverIcon(supR);
-        
-        getSto().setBounds(5, 193, 269, 45);
-		getSto().setOpaque(false);
-		getSto().setFocusable(false);
-        getSto().setContentAreaFilled(false);
-        getSto().setBorderPainted(false);
-        getSto().setRolloverIcon(stoR);
-        
-        getPer().setBounds(5, 240, 269, 45);
-		getPer().setOpaque(false);
-		getPer().setFocusable(false);
-        getPer().setContentAreaFilled(false);
-        getPer().setBorderPainted(false);
-        getPer().setRolloverIcon(perR);
-        
-        getUpd().setBounds(5, 287, 269, 45);
-		getUpd().setOpaque(false);
-		getUpd().setFocusable(false);
-        getUpd().setContentAreaFilled(false);
-        getUpd().setBorderPainted(false);
-        getUpd().setRolloverIcon(updR);
-        
-        getGen().setBounds(5, 334, 269, 45);
-		getGen().setOpaque(false);
-		getGen().setFocusable(false);
-        getGen().setContentAreaFilled(false);
-        getGen().setBorderPainted(false);
-        getGen().setRolloverIcon(genR);
-        
-        getView().setBounds(5, 381, 269, 45);
-		getView().setOpaque(false);
-		getView().setFocusable(false);
-        getView().setContentAreaFilled(false);
-        getView().setBorderPainted(false);
-        getView().setRolloverIcon(viewR);
-        
-        getPri().setBounds(5, 428, 269, 45);
-		getPri().setOpaque(false);
-		getPri().setFocusable(false);
-        getPri().setContentAreaFilled(false);
-        getPri().setBorderPainted(false);
-        getPri().setRolloverIcon(priR);
+		setUserLabel(new JLabel("Logged in as: " + getUserName() + "     " + getOfficeName()));
+		getUserLabel().setBounds(6, 78, 600, 38);
+		getUserLabel().setOpaque(false);
+		getUserLabel().setFont( new Font("Serif", Font.PLAIN, 21));
+		getUserLabel().setBorder(null);
+		
+		setDateTime(new JLabel());
+		dateTime.setBounds(700, 78, 315, 38);
+		dateTime.setOpaque(false);
+		dateTime.setFont( new Font("Serif", Font.PLAIN, 21));
+		dateTime.setBorder(null);
+		dateTime.setHorizontalAlignment(SwingConstants.RIGHT);
+		new Thread( new CurrentTime() ).start();
 	}
 	
+	public class CurrentTime implements Runnable
+	{
+		public void run()
+		{
+			while( true ) {
+				try {
+					Date dNow = new Date( );
+					SimpleDateFormat ft = new SimpleDateFormat ("EE, dd MMM yyyy hh:mm:ss a");
+					getDateTime().setText( ft.format(dNow) );
+					Thread.sleep( 1000 );
+				} catch (InterruptedException e) {
+					JOptionPane.showMessageDialog( null, "Error in current time display." );
+				}
+			}
+		}
+	}
 	private void setButton(JButton button, ImageIcon rollover, int x, int y, int width, int height) {
 		button.setBounds(x, y, width, height);
 		button.setOpaque(false);
@@ -120,68 +116,87 @@ public class HomeView extends JPanel {
 		button.setBorderPainted(false);
 		button.setRolloverIcon(rollover);
 	}
-
-	public JButton getPer() {
-		return person;
+	
+	public void addControllers( HomeController controller )
+	{
+		for( int i = 0; i < 5; i++ )
+			getMenuButtons()[i].addActionListener( controller );
 	}
 	
-	public JButton getSto() {
-		return stock;
+	public void viewNonSupply()
+	{
+		getMenuButtons()[0].setVisible( false );
+		getMenuButtons()[1].setVisible( false );
+		getMenuButtons()[3].setVisible( false );
 	}
 	
-	public JButton getSup() {
-		return supply;
+	public void changePanel( Component oldPanel, JPanel panel ) {
+		newPanel.setVisible(false);
+		newPanel.remove(oldPanel);
+		newPanel.add( panel );
+		newPanel.setVisible( true );
+		panel.setVisible( true );
+		repaint();
+		revalidate();
 	}
 	
-	public JButton getGen() {
-		return report;
-	}
-	
-	public JButton getView() {
-		return view;
-	}
-	
-	public JButton getUpd() {
-		return update;
-	}
-	
-	public JButton getPri() {
-		return print;
-	}
-
-	private void setPri(JButton print) {
-		this.print = print;
-	}
-
-	private void setView(JButton view) {
-		this.view = view;
-	}
-
-	private void setUpd(JButton update) {
-		this.update = update;
-	}
-
-	private void setGen(JButton report) {
-		this.report = report;
-	}
-
-	private void setSup(JButton supply) {
-		this.supply = supply;
-	}
-
-	private void setSto(JButton stock) {
-		this.stock = stock;
-	}
-
-	private void setPer(JButton person) {
-		this.person = person;
-	}
-
 	public JLabel getBG() {
 		return mainbg;
 	}
 
 	private void setBG(JLabel mainbg) {
 		this.mainbg = mainbg;
+	}
+	
+	public JPanel getNewPanel() {
+		return newPanel;
+	}
+
+	public void setNewPanel(JPanel newPanel) {
+		this.newPanel = newPanel;
+	}
+
+	public JButton[] getMenuButtons() {
+		return menuButtons;
+	}
+
+	public void setMenuButtons(JButton menuButtons[]) {
+		this.menuButtons = menuButtons;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getOfficeName() {
+		return officeName;
+	}
+
+	public void setOfficeName(String officeName) {
+		this.officeName = officeName;
+	}
+
+	public JLabel getDateTime() {
+		return dateTime;
+	}
+
+	public void setDateTime(JLabel dateTime) {
+		this.dateTime = dateTime;
+	}
+	
+	public JLabel getUserLabel() {
+		return userLabel;
+	}
+
+	public void setUserLabel(JLabel userLabel) {
+		this.userLabel = userLabel;
+	}
+
+	public void updateUserLabel() {
+		getUserLabel().setText("Logged in as: " + getUserName() + "     " + getOfficeName());
 	}
 }

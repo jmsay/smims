@@ -2,19 +2,16 @@ package model;
 
 import java.sql.*;
 
-public class LoginModel {
-	
-	String url = "jdbc:mysql://localhost:3306/";
-	String dbName = "supply_db";
-	String driver = "com.mysql.jdbc.Driver";
-	String userName = "root"; 
-	String password = "";//Setup the Connection and Statement object variables
-	Connection conn = null; 
-	Statement stmt  = null; 
-	ResultSet rs = null;
+public class LoginModel extends SuperModel {
+
+	String first_name;
+	String last_name;
+	String office;
+	String position;
 	
 	public LoginModel()
 	{
+		super();
 		try {
 			Class.forName(driver).newInstance();
 		} catch( Exception e ) {
@@ -25,6 +22,7 @@ public class LoginModel {
 	public boolean checkCredentials( String user, String pass )
 	{
 		boolean result=false;
+		int emp_id = 0;
 		try {
 			conn = DriverManager.getConnection(url+dbName,userName,password);
 			
@@ -37,15 +35,31 @@ public class LoginModel {
 			int count = 0;
 			while(rs.next())
 			{
-				String name = rs.getString("username");
-				String pass1 = rs.getString("password");
-				int emp_id = rs.getInt("emp_id");
-				
-				System.out.println("--MODEL-- Name: " + name + " Password: " + pass1 + " Employee ID:" + emp_id);
+				emp_id = rs.getInt("emp_id");
 				count++;
 			}
-			if( count > 0 )
+			if( count > 0 ) {
 				result = true;
+				sql = "SELECT first_name, last_name FROM personnel WHERE id=" + emp_id;
+				rs = stmt.executeQuery(sql);
+				
+				while(rs.next())
+				{
+					setFirst_name(rs.getString("first_name"));
+					setLast_name(rs.getString("last_name"));
+					break;
+				}
+				sql = "SELECT name, position FROM office_personnel JOIN office ON office_id=id WHERE emp_id=" + emp_id;
+				
+				rs = stmt.executeQuery(sql);
+				
+				while(rs.next())
+				{
+					setOffice( rs.getString("name") );
+					setPosition( rs.getString("position"));
+					break;
+				}
+			}
 			else
 				result = false;
 			rs.close();
@@ -56,8 +70,36 @@ public class LoginModel {
 		}
 		return result;
 	}
-	public static void main( String [] args )
-	{
-		new LoginModel();
+	
+	public String getFirst_name() {
+		return first_name;
+	}
+	
+	public void setFirst_name( String first_name ) {
+		this.first_name = first_name;
+	}
+	
+	public String getLast_name() {
+		return last_name;
+	}
+	
+	public void setLast_name( String last_name ) {
+		this.last_name = last_name;
+	}
+	
+	public String getOffice() {
+		return office;
+	}
+	
+	public void setOffice( String office ) {
+		this.office = office;
+	}
+	
+	public String getPosition() {
+		return position;
+	}
+	
+	public void setPosition( String position ) {
+		this.position = position;
 	}
 }

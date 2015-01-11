@@ -1,12 +1,11 @@
 package view;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 import controller.*;
 import model.*;
 
-public class MainClass extends JFrame{
+public class MainClass extends JFrame {
 	
 	private MainController mainController;
 
@@ -14,34 +13,31 @@ public class MainClass extends JFrame{
 	private LoginView loginView;
 	private LoginModel loginModel;
 	
-	public MainClass()
+	public MainClass( MainController mainController )
 	{
 		super( "Supplies and Materials Inventory Management System" );
-		setLoginView(new LoginView());
-		setLoginModel(new LoginModel());
-		setMainController( new MainController( this ) );
-		setLoginController(new LoginController( getMainController(), getLoginView(), getLoginModel() ));
+		setMainController( mainController );
+		
 		setLayout(null);
+		setLoginMVC();
 		
-		add(getLoginView());
-		getLoginView().setVisible(true);
-		
-		setSize(1000, 700);
+		setSize(1024, 600);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setVisible(true);
 	}
 	
-	public static void main( String [] args )
+	public void setLoginMVC()
 	{
-		new MainClass();
+		setLoginView(new LoginView());
+		setLoginModel(new LoginModel());
+		setLoginController(new LoginController( getMainController(), getLoginView(), getLoginModel() ));
+		
+		add(getLoginView());
+		getLoginView().setVisible(true);
 	}
 	
-	public void setView( JPanel panel ) {
-		
-	}
-
 	public MainController getMainController() {
 		return mainController;
 	}

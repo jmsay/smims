@@ -36,9 +36,9 @@ public class LoginView extends JPanel {
 	}
 
 	private void loadImages() {
-		bg = new ImageIcon("images/loginbg.jpg");
-		lgu = new ImageIcon("images/buttons/loginU.png");
-		lgr = new ImageIcon("images/buttons/loginR.png");
+		bg = new ImageIcon("images/bg/loginbg.png");
+		lgu = new ImageIcon("images/buttons/loginbtn.png");
+		lgr = new ImageIcon("images/buttons/loginRO.png");
 	}
 
 	private void initComponents() {

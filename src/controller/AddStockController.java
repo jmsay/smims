@@ -28,7 +28,7 @@ public class AddStockController implements ActionListener {
 	
 	public void actionPerformed(ActionEvent e)
 	{
-		if( e.getSource() == view.getOK() ) {
+		if( e.getSource() == view.getOK() || e.getSource() == view.getAmount() ) {
 			try {
 				String item = (String) model.getItemIDs()[view.getItemList().getSelectedIndex()];
 				item = item.trim();
@@ -37,8 +37,7 @@ public class AddStockController implements ActionListener {
 					JOptionPane.showMessageDialog( null, "All fields are required." );
 				else {
 					int amount = Integer.parseInt(amountString);
-					System.out.println(view.getItemList().getSelectedIndex());
-					model.addToDatabase( item, amount );
+					model.addToDatabase( getController().getController().getOfficeEmpID(), item, amount );
 					int result = JOptionPane.showConfirmDialog(null, "Database successfully updated! Do you want to add a new entry?", "Success", JOptionPane.YES_NO_OPTION );
 					if( result == 0 ) {
 						AddStockModel addStockModel = new AddStockModel();

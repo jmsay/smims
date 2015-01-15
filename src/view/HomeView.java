@@ -17,11 +17,12 @@ import controller.HomeController;
 
 public class HomeView extends JPanel {
 	
-	ImageIcon bg, menuButtonIcon[] = new ImageIcon[5], menuROButtonIcon[] = new ImageIcon[5];;
+	ImageIcon bg, menuButtonIcon[] = new ImageIcon[5], menuROButtonIcon[] = new ImageIcon[5], logoutIcon, logoutROIcon;
 	private JLabel mainbg;
 	private JLabel dateTime;
 	private JLabel userLabel;
 	private JButton menuButtons[] = new JButton[5];
+	private JButton logoutBtn;
 	private JPanel newPanel;
 	private String userName;
 	private String officeName;
@@ -38,6 +39,7 @@ public class HomeView extends JPanel {
 
 	private void addComponents() {
 		add(getNewPanel());
+		add(getLogoutBtn());
 		add(getUserLabel());
 		add(getDateTime());
 		for( int i = 0; i < 5; i++ )
@@ -46,7 +48,7 @@ public class HomeView extends JPanel {
 	}
 	
 	private void loadImages() {
-		bg = new ImageIcon("images/menuBg.jpg");
+		bg = new ImageIcon("images/bg/menuBg.png");
 		menuButtonIcon[0] = new ImageIcon("images/buttons/addSupMat.png");
 		menuROButtonIcon[0] = new ImageIcon("images/buttons/addSupMatRO.png");
 		menuButtonIcon[1] = new ImageIcon("images/buttons/addStock.png");
@@ -57,36 +59,41 @@ public class HomeView extends JPanel {
 		menuROButtonIcon[3] = new ImageIcon("images/buttons/addPerRO.png");
 		menuButtonIcon[4] = new ImageIcon("images/buttons/genRep.png");
 		menuROButtonIcon[4] = new ImageIcon("images/buttons/genRepRO.png");
+		logoutIcon = new ImageIcon("images/buttons/logoutBtn.png");
+		logoutROIcon = new ImageIcon("images/buttons/logoutRO.png");
 	}
 
 	private void initComponents() {
 		setBG(new JLabel(bg));
-		getBG().setBounds(0, 0, 1024, 600);
+		getBG().setBounds(0, 0, 1024, 575);
+
+		setLogoutBtn( new JButton(logoutIcon) );
+		setButton( getLogoutBtn(), logoutROIcon, 935, 65, 75, 29 );
 		
-		for(int i=0, y=160; i<5; i++, y+=33 ){
+		for(int i=0, y=135; i<5; i++, y+=33 ){
 			menuButtons[i] = new JButton(menuButtonIcon[i]);
 			if( i == 3 )
-				y = 298;
+				y = 273;
 			else if( i == 4 )
-				y = 375;
+				y = 351;
 			setButton( getMenuButtons()[i], menuROButtonIcon[i], 4, y, 214, 32 );
 		}
 		setNewPanel(new JPanel());
-		getNewPanel().setBounds(222, 123, 795, 477);
+		getNewPanel().setBounds(221, 99, 801, 476);
 		getNewPanel().setOpaque(false);
 		getNewPanel().setFocusable(false);
 		getNewPanel().setLayout(null);
 		
 		setUserLabel(new JLabel("Logged in as: " + getUserName() + "     " + getOfficeName()));
-		getUserLabel().setBounds(6, 78, 600, 38);
+		getUserLabel().setBounds(6, 59, 600, 38);
 		getUserLabel().setOpaque(false);
-		getUserLabel().setFont( new Font("Serif", Font.PLAIN, 21));
+		getUserLabel().setFont( new Font("Serif", Font.PLAIN, 18));
 		getUserLabel().setBorder(null);
 		
 		setDateTime(new JLabel());
-		dateTime.setBounds(700, 78, 315, 38);
+		dateTime.setBounds(600, 59, 315, 38);
 		dateTime.setOpaque(false);
-		dateTime.setFont( new Font("Serif", Font.PLAIN, 21));
+		dateTime.setFont( new Font("Serif", Font.PLAIN, 18));
 		dateTime.setBorder(null);
 		dateTime.setHorizontalAlignment(SwingConstants.RIGHT);
 		new Thread( new CurrentTime() ).start();
@@ -121,6 +128,7 @@ public class HomeView extends JPanel {
 	{
 		for( int i = 0; i < 5; i++ )
 			getMenuButtons()[i].addActionListener( controller );
+		getLogoutBtn().addActionListener( controller );
 	}
 	
 	public void viewNonSupply()
@@ -162,6 +170,14 @@ public class HomeView extends JPanel {
 
 	public void setMenuButtons(JButton menuButtons[]) {
 		this.menuButtons = menuButtons;
+	}
+
+	public JButton getLogoutBtn() {
+		return logoutBtn;
+	}
+
+	public void setLogoutBtn(JButton logoutBtn) {
+		this.logoutBtn = logoutBtn;
 	}
 
 	public String getUserName() {

@@ -54,7 +54,7 @@ public class AddMaterialModel extends SuperModel {
 		return list;
 	}
 	
-	public void addToDatabase( String item_no, String name, String description, String category, String unit, float price )
+	public void addToDatabase( int empID, String item_no, String name, String description, String category, String unit, float price )
 	{
 		int result;
 		String item="";
@@ -84,6 +84,8 @@ public class AddMaterialModel extends SuperModel {
 			}
 			else {
 				sql = "INSERT INTO material(item_no, name, description, category, unit, price) VALUES (\"" + item_no + "\",\"" + name + "\",\"" + description + "\",\"" + category + "\",\"" + unit + "\"," + price + ")";
+				stmt.executeUpdate(sql);
+				sql = "INSERT INTO transaction_log(office_emp_id, action, date_time_stamp) VALUES (" + empID + ", \"added new material " + item_no + " to inventory\", NOW())";
 				stmt.executeUpdate(sql);
 			}
 			rs.close();

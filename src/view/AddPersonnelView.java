@@ -1,5 +1,7 @@
 package view;
 
+import java.awt.Font;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -38,9 +40,9 @@ public class AddPersonnelView extends JPanel {
 	}
 	
 	private void loadImages() {
-		bg = new ImageIcon("images/addPersonnelBg.jpg");
+		bg = new ImageIcon("images/bg/addPersonnelBg.png");
 		okU = new ImageIcon("images/buttons/okBtn.png");
-		okR = new ImageIcon("images/buttons/okR.png");
+		okR = new ImageIcon("images/buttons/okRO.png");
 	}
 
 	private void addComponents() {
@@ -52,7 +54,7 @@ public class AddPersonnelView extends JPanel {
 	
 	public void addOfficeComboBox() {
         setOfficeList(new JComboBox(offices));
-        getOfficeList().setBounds(264, 219, 416, 31);
+        getOfficeList().setBounds(258, 209, 418, 31);
         //getOfficeList().setOpaque(false);
         getOfficeList().setBorder(null);
         add(getOfficeList());
@@ -63,7 +65,7 @@ public class AddPersonnelView extends JPanel {
 	
 	private void initComponents() {
 		setBG(new JLabel(bg));
-		getBG().setBounds(0, 0, 795, 477);
+		getBG().setBounds(0, 0, 801, 476);
 		
 		setOK(new JButton(okU));
 		getOK().setBounds(350, 350, 96, 61);
@@ -77,13 +79,14 @@ public class AddPersonnelView extends JPanel {
         setFirstField(new JTextField(20));
         setPosiField(new JTextField(20));
         
-        setTextField(getLastField(), 264, 111, 416, 31);
-        setTextField(getFirstField(), 264, 165, 416, 31);
-        setTextField(getPosiField(), 264, 273, 416, 31);
+        setTextField(getLastField(), 260, 111, 416, 31);
+        setTextField(getFirstField(), 260, 160, 416, 31);
+        setTextField(getPosiField(), 260, 259, 416, 31);
 	}
 	
 	private void setTextField(JTextField field, int x, int y, int width, int height) {
 		field.setBounds(x, y, width, height);
+		field.setFont( new Font("Serif", Font.PLAIN, 21) ); 
 		field.setOpaque(false);
 		field.setBorder(null);
 	}

@@ -52,7 +52,7 @@ public class AddPersonnelModel extends SuperModel {
 		return list;
 	}
 	
-	public void addToDatabase( String first_name, String last_name, String office, String position )
+	public void addToDatabase( int empID, String first_name, String last_name, String office, String position )
 	{
 		int result, emp_id=0, office_id=0;
 		try {
@@ -96,6 +96,8 @@ public class AddPersonnelModel extends SuperModel {
 					emp_id = rs.getInt("id");
 				}
 				sql = "INSERT INTO office_personnel(office_id, emp_id, position) VALUES (" + office_id + "," + emp_id + ",\"" + position + "\")";
+				stmt.executeUpdate(sql);
+				sql = "INSERT INTO transaction_log(office_emp_id, action, date_time_stamp) VALUES (" + empID + ", \"added new personnel " + first_name + " " + last_name + "\", NOW())";
 				stmt.executeUpdate(sql);
 			}
 			rs.close();

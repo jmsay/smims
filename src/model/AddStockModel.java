@@ -2,11 +2,10 @@ package model;
 
 import java.sql.*;
 
-import javax.swing.JOptionPane;
-
 public class AddStockModel extends SuperModel {
 	
 	private String[] itemIDs;
+	
 	public AddStockModel()
 	{
 		super();
@@ -38,7 +37,7 @@ public class AddStockModel extends SuperModel {
 				break;
 			}
 			
-			sql = "SELECT * FROM material ORDER BY category ASC, item_no ASC";
+			sql = "SELECT * FROM material ORDER BY name ASC";
 			rs = stmt.executeQuery(sql);
 			
 			int count = 0;
@@ -57,7 +56,7 @@ public class AddStockModel extends SuperModel {
 		return list;
 	}
 	
-	public void addToDatabase( String item_no, int amount )
+	public void addToDatabase( int empID, String item_no, int amount )
 	{
 		try {
 			conn = DriverManager.getConnection(url+dbName,userName,password);
@@ -67,7 +66,8 @@ public class AddStockModel extends SuperModel {
 			String sql;
 			sql = "INSERT INTO stock(item_no, amount, date_added) VALUES (\"" + item_no + "\"," + amount + ",NOW()" + ")";
 			stmt.executeUpdate(sql);
-			
+			sql = "INSERT INTO transaction_log(office_emp_id, action, date_time_stamp) VALUES (" + empID + ", \"added " + amount + " to Item " + item_no + "\'s stock\", NOW())";
+			stmt.executeUpdate(sql);
 			rs.close();
 			stmt.close();
 			conn.close();

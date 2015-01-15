@@ -1,5 +1,7 @@
 package view;
 
+import java.awt.Font;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -33,9 +35,9 @@ public class AddStockView extends JPanel {
 	}
 	
 	private void loadImages() {
-		bg = new ImageIcon("images/addStockBg.jpg");
+		bg = new ImageIcon("images/bg/addStockBg.png");
 		okU = new ImageIcon("images/buttons/okBtn.png");
-		okR = new ImageIcon("images/buttons/okR.png");
+		okR = new ImageIcon("images/buttons/okRO.png");
 	}
 
 	private void addComponents() {
@@ -45,7 +47,7 @@ public class AddStockView extends JPanel {
 	
 	public void addItemsComboBox() {
         setItemList(new JComboBox(items));
-        getItemList().setBounds( 259, 151, 416, 31 );
+        getItemList().setBounds(259, 151, 416, 31);
         //getItemList().setOpaque(false);
         getItemList().setBorder(null);
         add(getItemList());
@@ -56,7 +58,7 @@ public class AddStockView extends JPanel {
 	
 	private void initComponents() {
 		setBG(new JLabel(bg));
-		getBG().setBounds(0, 0, 795, 477);
+		getBG().setBounds(0, 0, 801, 476);
 		
 		setOK(new JButton(okU));
 		getOK().setBounds(350, 300, 96, 61);
@@ -68,17 +70,19 @@ public class AddStockView extends JPanel {
         
         setAmount( new JTextField(20) );
         
-        setTextField(getAmount(), 259, 204, 416, 31);
+        setTextField(getAmount(), 259, 201, 416, 31);
 	}
 	
 	private void setTextField(JTextField field, int x, int y, int width, int height) {
 		field.setBounds(x, y, width, height);
+		field.setFont( new Font("Serif", Font.PLAIN, 21));
 		field.setOpaque(false);
 		field.setBorder(null);
 	}
 	
 	public void addControllers( AddStockController controller ) {
 		getOK().addActionListener( controller );
+		getAmount().addActionListener( controller );
 	}
 	
 	public JButton getOK() {

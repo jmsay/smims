@@ -1,10 +1,16 @@
 package view;
 
+import java.awt.Component;
 import java.awt.Font;
+
+import javax.swing.DefaultListCellRenderer;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JPanel;
 
@@ -15,7 +21,8 @@ public class AddMaterialView extends JPanel {
 	ImageIcon bg, okU, okR;
 	private JLabel ambg;
 	private JButton ok;
-	private JTextField item_no, materialName, desc, unit, price;
+	private JTextField item_no, materialName, unit, price;
+	private JTextArea desc;
 	private JComboBox category;
 	String[] categoryList;
 	
@@ -29,9 +36,9 @@ public class AddMaterialView extends JPanel {
 	}
 
 	private void loadImages() {
-		bg = new ImageIcon("images/addMaterialBG.jpg");
+		bg = new ImageIcon("images/bg/addMaterialBG.png");
 		okU = new ImageIcon("images/buttons/okBtn.png");
-		okR = new ImageIcon("images/buttons/okR.png");
+		okR = new ImageIcon("images/buttons/okRO.png");
 	}
 
 	private void addComponents() {
@@ -45,7 +52,7 @@ public class AddMaterialView extends JPanel {
 	
 	private void initComponents() {
 		setBG(new JLabel(bg));
-		getBG().setBounds(0, 0, 795, 477);
+		getBG().setBounds(0, 0, 801, 476);
 		
 		setOK(new JButton(okU));
 		getOK().setBounds(350, 393, 96, 61);
@@ -57,21 +64,26 @@ public class AddMaterialView extends JPanel {
         
         setItem_no(new JTextField(10));
         setMaterialName(new JTextField(20));
-        setDesc(new JTextField(20));
         setUnit(new JTextField(10));
         setPrice(new JTextField(10));
         
         setTextField(getItem_no(), 258, 67, 418, 31);
         setTextField(getMaterialName(), 258, 148, 418, 31);
-        setTextField(getDesc(), 258, 188, 418, 31);
         setTextField(getUnit(), 258, 325, 418, 31);
         setTextField(getPrice(), 258, 364, 418, 31);
+        
+        setDesc( new JTextArea() );
+        getDesc().setLineWrap(true);
+		getDesc().setFont( new Font("Serif", Font.PLAIN, 21));
+		getDesc().setBounds(258, 190, 418, 125);
+		getDesc().setOpaque(false);
+		getDesc().setBorder(null);
 	}
 	
 	public void addCategoryComboBox() {
         setCategory(new JComboBox(categoryList));
-        getCategory().setBounds( 258, 108, 418, 31 );
-        //getCategory().setOpaque(false);
+        getCategory().setBounds( 258, 106, 418, 31 );
+        getCategory().setOpaque(false);
         getCategory().setBorder(null);
         getCategory().setEditable(true);
         add(getCategory());
@@ -131,14 +143,6 @@ public class AddMaterialView extends JPanel {
 		this.materialName = name;
 	}
 
-	public JTextField getDesc() {
-		return desc;
-	}
-
-	public void setDesc(JTextField desc) {
-		this.desc = desc;
-	}
-
 	public JTextField getUnit() {
 		return unit;
 	}
@@ -174,5 +178,13 @@ public class AddMaterialView extends JPanel {
 	public void setCategoryList( String[] categoryList )
 	{
 		this.categoryList = categoryList;
+	}
+
+	public JTextArea getDesc() {
+		return desc;
+	}
+
+	public void setDesc(JTextArea desc) {
+		this.desc = desc;
 	}
 }

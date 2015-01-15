@@ -43,7 +43,7 @@ public class HomeController implements ActionListener {
 			new AddMaterialController( this, addMaterialModel, addMaterialView );
 			getView().changePanel( getView().getNewPanel().getComponentAt(0,0), addMaterialView );
 		}
-		if( e.getSource() == getView().getMenuButtons()[1] ) {
+		else if( e.getSource() == getView().getMenuButtons()[1] ) {
 			AddStockModel addStockModel = new AddStockModel();
 			AddStockView addStockView = new AddStockView();
 			addStockView.setItems(addStockModel.getItems());
@@ -51,7 +51,16 @@ public class HomeController implements ActionListener {
 			new AddStockController( this, addStockModel, addStockView );
 			getView().changePanel( getView().getNewPanel().getComponentAt(0,0), addStockView);
 		}
-		if( e.getSource() == getView().getMenuButtons()[3] ) {
+		else if( e.getSource() == getView().getMenuButtons()[2] ) {
+			InventorySupplyModel inventorySupplyModel = new InventorySupplyModel();
+			inventorySupplyModel.getInventory("");
+			InventorySupplyView inventorySupplyView = new InventorySupplyView();
+			inventorySupplyView.setTableEntries(inventorySupplyModel.getInventoryArray());
+//			inventorySupplyView.setTableEntries(inventorySupplyModel.getItemNoList(), inventorySupplyModel.getNameList(), inventorySupplyModel.getDescList(), inventorySupplyModel.getCategoryList(), inventorySupplyModel.getUnitList(), inventorySupplyModel.getPriceList(), inventorySupplyModel.getStockList());
+			new InventorySupplyController( this, inventorySupplyModel, inventorySupplyView);
+			getView().changePanel( getView().getNewPanel().getComponentAt(0, 0), inventorySupplyView);
+		}
+		else if( e.getSource() == getView().getMenuButtons()[3] ) {
 			AddPersonnelModel addPersonnelModel = new AddPersonnelModel();
 			AddPersonnelView addPersonnelView = new AddPersonnelView();
 			addPersonnelView.setOffices(model.getOffice(), addPersonnelModel.getOffices());
@@ -59,14 +68,15 @@ public class HomeController implements ActionListener {
 			new AddPersonnelController( this, addPersonnelModel, addPersonnelView );
 			getView().changePanel( getView().getNewPanel().getComponentAt(0,0), addPersonnelView );
 		}
-//		if( e.getSource() == getView().getLO() ) {
-//			int result = JOptionPane.showConfirmDialog(null, "Are you sure you want to logout?", "Logout", JOptionPane.YES_NO_OPTION );
-//			if( result == 0 ) {
-//				LoginView loginView = new LoginView();
-//				new LoginController( getController(), loginView, getModel() );
-//				getController().changeView(getView(), loginView);
-//			}
-//		}
+		else if( e.getSource() == getView().getLogoutBtn() ) {
+			int result = JOptionPane.showConfirmDialog(null, "Are you sure you want to logout?", "Logout", JOptionPane.YES_NO_OPTION );
+			if( result == 0 ) {
+				getModel().logoutUser();
+				LoginView loginView = new LoginView();
+				new LoginController( getController(), loginView, getModel() );
+				getController().changeView(getView(), loginView);
+			}
+		}
 	}
 
 	public HomeView getView() {

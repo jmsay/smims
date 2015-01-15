@@ -37,7 +37,7 @@ public class AddPersonnelController implements ActionListener {
 			if( first.isEmpty() || last.isEmpty() || office.isEmpty() || position.isEmpty() )
 				JOptionPane.showMessageDialog( null, "All fields are required." );
 			else {
-				model.addToDatabase( first, last, office, position );
+				model.addToDatabase( getController().getController().getOfficeEmpID(), first, last, office, position );
 				int result = JOptionPane.showConfirmDialog(null, "Database successfully updated! Do you want to add a new entry?", "Success", JOptionPane.YES_NO_OPTION );
 				if( result == 0 ) {
 					AddPersonnelModel addPersonnelModel = new AddPersonnelModel();

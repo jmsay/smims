@@ -6,9 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 
 import view.AddMaterialView;
-import view.AddPersonnelView;
 import model.AddMaterialModel;
-import model.AddPersonnelModel;
 
 public class AddMaterialController implements ActionListener {
 	
@@ -38,11 +36,11 @@ public class AddMaterialController implements ActionListener {
 				category = category.trim();
 				String unit = view.getUnit().getText().trim();
 				String priceString = view.getPrice().getText().trim();
-				if( item_no.isEmpty() || materialName.isEmpty() || desc.isEmpty() || category.isEmpty() || unit.isEmpty() || priceString.isEmpty() )
+				if( item_no.isEmpty() || materialName.isEmpty() || category.isEmpty() || unit.isEmpty() || priceString.isEmpty() )
 					JOptionPane.showMessageDialog( null, "All fields are required." );
 				else {
 					float price = Float.parseFloat(priceString);
-					model.addToDatabase(item_no, materialName, desc, category, unit, price );
+					model.addToDatabase( getController().getController().getOfficeEmpID(), item_no, materialName, desc, category, unit, price );
 					view.getItem_no().setText(model.getItemNo());
 					int result = JOptionPane.showConfirmDialog(null, "Database successfully updated! Do you want to add a new entry?", "Success", JOptionPane.YES_NO_OPTION );
 					if( result == 0 ) {

@@ -14,4 +14,18 @@ public class SuperModel {
 	static Connection conn = null; 
 	static Statement stmt  = null; 
 	static ResultSet rs = null;
+	private int empID;
+	
+	public SuperModel()
+	{
+		
+	}
+
+	public int getEmpID() {
+		return empID;
+	}
+
+	public void setEmpID(int empID) {
+		this.empID = empID;
+	}
 }

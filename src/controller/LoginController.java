@@ -39,6 +39,7 @@ public class LoginController implements ActionListener {
 				homeView.setOfficeName( model.getPosition() + ", " + model.getOffice().toUpperCase() );
 				homeView.updateUserLabel();
 				controller.changeView( view, homeView );
+				controller.setOfficeEmpID( model.getEmpID() );
 				new HomeController( controller, homeView, model );
 			}
 			else
